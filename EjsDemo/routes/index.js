@@ -7,11 +7,16 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/about', function(req, res, next) {
-  res.render('about');
+  res.render('about',{ title: 'Express' });
+});
+router.get('/service', function(req, res, next) {
+  res.render('service',{ title: 'Express' });
 });
 
-router.get('/contect', function(req, res, next) {
-  res.render('contect');
+
+
+router.get('/contact', function(req, res, next) {
+  res.render('contect',{ title: 'Express' });
 });
 
 module.exports = router;
