@@ -111,6 +111,59 @@ const upload = multer({
     
   })
 
+// 'users/login'
+router.post('/userlogin',function (req,res,next) {
   
+  var data = {
+    email : req.body.email,
+    password : req.body.pass
+  }
+
+  console.log(data);
+
+  conn.query('select * from users where email= ? and password = ? and flag=1',[data.email,data.password],function (err,result,fields) {
+    if(result.length > 0){
+      res.redirect('/');
+    }else{
+      res.end('wrong5')
+    }
+  })
+})  
+
+
+// 'users/register'
+router.post('/userregister', function(req, res, next) {
+
+  var data = {
+     name : req.body.name,
+     email : req.body.email,
+     address : req.body.address,
+     password : req.body.pass,
+     flag:1
+     
+  }
+  var pass = req.body.pass
+  var c_pass = req.body.c_pass
+  console.log(data);
+  if (data.password == c_pass) {
+   
+    const sql = 'insert into users set ?'
+    conn.query(sql,data,function(err,result){
+      if(err) {
+        console.log('not');
+      }else{
+        console.log('yes');
+      }
+      res.redirect('/admin');
+    })
+   
+  }else{
+    console.log('not');
+    res.end('<h1>not same password</h1>')
+  }
+  
+// res.redirect('/')
+  
+});
 
 module.exports = router;

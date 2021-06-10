@@ -25,9 +25,6 @@ router.get('/', function(req, res, next) {
 
 
 
-router.get('/register',function(req,res){
-  res.end('register')
-})
 
 router.get('/item',function (req,res) {
   conn.query("select * from product",function (err,db_rows) {
@@ -42,4 +39,23 @@ router.get('/item',function (req,res) {
   })
  
 })
+
+router.get('/buynow/:id',function (req,res) {
+  var id = req.params.id;
+  conn.query("select * from product where id=?",id,function (err,result) {
+    if(err) throw err;
+    console.log(result);
+    res.render('buy',{result:result})
+  })
+ 
+})
+
+router.get('/login',function(req,res){
+  res.render('login')
+})
+
+router.get('/register',function (req,res) {
+  res.render('register')
+})
+
 module.exports = router;
