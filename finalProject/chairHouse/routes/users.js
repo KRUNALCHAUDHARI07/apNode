@@ -33,8 +33,12 @@ router.post('/login',function (req,res,next) {
   console.log(data);
 
   conn.query('select * from users where email= ? and password = ?',[data.email,data.password],function (err,result,fields) {
+    if (err) throw err;
     if(result.length > 0){
+      res.cookie('email',data)
+      console.log(req.cookies);
       res.redirect('/admin/home');
+      // res.send(req.cookies.email.email)
     }else{
       res.end('wrong5')
     }
@@ -76,6 +80,8 @@ router.post('/register', function(req, res, next) {
   
 });
 
+//
+
 
  //Set Storage Engine
 const storage = multer.diskStorage({
@@ -105,12 +111,35 @@ const upload = multer({
         res.end('not inserted');
       }
       else{
+        
         res.redirect('/admin/home')
       }
     })
     
   })
 
+
+  router.post('/updateProduct/:id',upload,function (req,res,next) {
+    var id = req.params.id;
+
+    var data = {
+      product_img: req.file.filename,
+      product_name : req.body.pname,
+      product_desc : req.body.pdisc,
+      product_price: req.body.price
+            }
+
+    conn.query(`update product set? where id=${id}`,data,function (err,result) {
+      if (err) {
+        res.end('not inserted');
+      }
+      else{
+        
+        res.redirect('/admin/home')
+      }
+    })
+    
+  })
 // 'users/login'
 router.post('/userlogin',function (req,res,next) {
   
@@ -123,7 +152,9 @@ router.post('/userlogin',function (req,res,next) {
 
   conn.query('select * from users where email= ? and password = ? and flag=1',[data.email,data.password],function (err,result,fields) {
     if(result.length > 0){
+      res.cookie('email',data.email)
       res.redirect('/');
+
     }else{
       res.end('wrong5')
     }
@@ -142,7 +173,7 @@ router.post('/userregister', function(req, res, next) {
      flag:1
      
   }
-  var pass = req.body.pass
+ 
   var c_pass = req.body.c_pass
   console.log(data);
   if (data.password == c_pass) {

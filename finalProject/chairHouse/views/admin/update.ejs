@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Login Form - Responsive Template</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="html.design">
+<!-- description -->
+<meta name="description" content="Login Form - Responsive Template">
+<link rel="shortcut icon" href="images/favicon.ico">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="/stylesheets/css/bootstrap.min.css">
+<!-- Material Design Icons CSS -->
+<link rel="stylesheet" href="/stylesheets/css/materialdesignicons.css">
+<!-- Bootstrap Checkbox CSS -->
+<link rel="stylesheet" href="/stylesheets/css/awesome-bootstrap-checkbox.css">
+<!-- Rippler CSS -->
+<link rel="stylesheet" href="/stylesheets/css/rippler.min.css">
+
+<!-- Responsive  CSS -->
+<link rel="stylesheet" href="/stylesheets/css/responsive.css">
+</head>
+<body>
+    <%- include('header'); -%>
+
+        
+<!-- !PAGE CONTENT! -->
+<div class="w3-main " style="margin-left:300px">
+    
+  <!-- Contact Section -->
+  <div class="w3-container w3-padding-large w3-grey">
+    <h1 id="contact"><b>Update Product</b></h4>
+    
+    <hr class="w3-opacity">
+    <% for(var i=0;i<data.length;i++){ %>
+    <form id="formLogin" method="POST" action="/users/updateProduct/<%= data[i].id %>" enctype="multipart/form-data" class="formLogin" class="formLogin">
+      
+        
+        <div class="w3-section">
+        <label>Product Name</label>
+        <input type="text" name="pname" value="<%= data[i].product_name %>" class="from-control w3-input w3-border" required  >
+      </div>
+      <div class="w3-section">
+        <label>Product Description</label>
+        <textarea name="pdisc" class="from-control w3-input w3-border"  required><%= data[i].product_desc %></textarea>
+      </div>
+      <div class="w3-section">
+        <label>Product Image</label>
+        <input type="file" name="p_img" value="<%= data[i].product_img %>" class="from-control w3-input w3-border" >
+      </div>
+      <div class="w3-section">
+        <label>Product Price</label>
+        <input type="number" class="from-control w3-input w3-border" value="<%= data[i].product_price %>" name="price" required  >
+      </div>
+      
+      <button type="submit" class="w3-button w3-black w3-margin-bottom">Update</button>
+    </form>
+    <% } %>
+  </div>
+     
+            </div>
+    </body>
+    </html>

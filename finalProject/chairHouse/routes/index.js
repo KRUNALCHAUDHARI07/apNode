@@ -58,4 +58,22 @@ router.get('/register',function (req,res) {
   res.render('register')
 })
 
+router.get('/buy/:id',function (req,res) {
+  var id = req.params.id;
+  var data= {
+    product_id : id,
+    order_date : new Date,
+    customer_email: req.cookies.email,
+  }
+  console.log(data);
+  conn.query('insert into cart set ?',data,function (err,result) {
+    if(err) throw err;
+    res.send(data)
+  })
+  res.redirect('/')
+})
+
+router.get('/cart',function (req,res) {
+  res.render('cart')
+})
 module.exports = router;

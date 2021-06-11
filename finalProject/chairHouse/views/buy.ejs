@@ -21,8 +21,8 @@
         <p class="h2 "><%= result[i].product_name %></p>
         <p ><%= result[i].product_desc %></p>
         <p class="  h5 p_price text-success">&#8377;<%= result[i].product_price %></p>
-        <a  href="/"><button class=" mb-1 mt-3 btn btn-block btn-primary">Buy Now</button></a>
-        <a href="/"><button class="btn btn-block btn-danger">add cart</button></a>
+        <a  href="/buy/<%= result[i].id %>"><button class=" mb-1 mt-3 btn btn-block btn-primary">Buy Now</button></a>
+        <a href="/cart1"><button class="btn btn-block btn-danger">add cart</button></a>
       </div>
             
                 
